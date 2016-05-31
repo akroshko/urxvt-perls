@@ -31,6 +31,11 @@
 
 use strict;
 
+sub trim {
+    (my $s = $_[0]) =~ s/^\s+|\s+$//g;
+    return $s;
+}
+
 sub on_start {
 	my ($self) = @_;
 
@@ -63,6 +68,7 @@ sub paste {
 	my ($self) = @_;
 
 	my $str = `$self->{paste_cmd}`;
+	$str = trim($str);
 	if ($? == 0) {
 		$self->tt_paste($str);
 	} else {
