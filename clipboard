@@ -31,6 +31,8 @@
 
 use strict;
 
+# https://stackoverflow.com/questions/4597937/perl-function-to-trim-string-leading-and-trailing-whitespace
+# TODO: possibly turn multi-line into single spaces?
 sub trim {
     (my $s = $_[0]) =~ s/^\s+|\s+$//g;
     return $s;
@@ -68,6 +70,7 @@ sub paste {
 	my ($self) = @_;
 
 	my $str = `$self->{paste_cmd}`;
+    # trim strings so commands do not get run accidently
 	$str = trim($str);
 	if ($? == 0) {
 		$self->tt_paste($str);
